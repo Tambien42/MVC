@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 /**
  * Router
  */
@@ -88,5 +90,88 @@ class Router
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * Dispatch the route, Creating the controller object and running
+     * the action method
+     *
+     * @param string $url the route URL
+     * @return void
+     */
+    public function dispatch($url)
+    {
+        if ($this->match($url))
+        {
+            $controller = $this->params['controller'];
+            $controller = $this->convertToStudlyCaps($controller);
+            $controller = "App\Controllers\\$controller";
+
+            if (class_exists($controller))
+            {
+                $controller_object = new $controller($this->params);
+
+                $action = $this->params['action'];
+                $action = $this->convertToCamelCase($action);
+
+                if (is_callable([$controller_object, $action]))
+                {
+                    $controller_object->action();
+                }
+                else
+                    echo "Method $action (in controller $controller) not found";
+            }
+            else
+                echo "Controller class $controller not found";
+        }
+        else
+            echo "No route match";
+    }
+
+    /**
+     * Convert the string with hyphens to StudlyCaps,
+     * e.g. post-authors => PostAuthors
+     *
+     * @param string $string the string to convert
+     *
+     * @return string
+     */
+    protected function convertToStudlyCaps($string)
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
+    }
+
+    /**
+     * Convert the string with hyphens to amelCase,
+     * e.g. add-new => addNew
+     *
+     * @param string $string the string to convert
+     *
+     * @return string
+     */
+    protected function convertToStudlyCaps($string)
+    {
+        return lcfirst($this->convertToStudlyCaps($string));
+    }
+
+    /**
+     *
+     *
+     * @param string $url the full URL
+     *
+     * @return string The URL with the query string variables removed
+     */
+    protected function removeQueryStringVariables ($url)
+    {
+        if ($url != '')
+        {
+            $parts = explode ('&', $url, 2);
+
+            if (strpos($parts[0], '"') === false)
+                $url = $parts[0];
+            else
+                $url = '';
+        }
+        return $url;
     }
 }
