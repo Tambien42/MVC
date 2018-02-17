@@ -66,12 +66,14 @@ class Router
      */
     public function match($url)
     {
-        foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches)) {
-                foreach ($matches as $key => $match) {
-                    if (is_string($key)) {
+        foreach ($this->routes as $route => $params)
+        {
+            if (preg_match($route, $url, $matches))
+            {
+                foreach ($matches as $key => $match)
+                {
+                    if (is_string($key))
                         $params[$key] = $match;
-                    }
                 }
 
                 $this->params = $params;
@@ -93,19 +95,24 @@ class Router
     }
 
     /**
-     * Dispatch the route, Creating the controller object and running
-     * the action method
+     * Dispatch the route, creating the controller object and running the
+     * action method
      *
-     * @param string $url the route URL
+     * @param string $url The route URL
+     *
      * @return void
      */
     public function dispatch($url)
     {
+
+        $url = $this->removeQueryStringVariables($url);
+
         if ($this->match($url))
         {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            $controller = "App\Controllers\\$controller";
+            //$controller = "App\Controllers\\$controller";
+            $controller = $this->getNamespace() . $controller;
 
             if (class_exists($controller))
             {
@@ -116,23 +123,23 @@ class Router
 
                 if (is_callable([$controller_object, $action]))
                 {
-                    $controller_object->action();
-                }
-                else
+                    $controller_object->$action();
+                } 
+                else 
                     echo "Method $action (in controller $controller) not found";
-            }
+            } 
             else
                 echo "Controller class $controller not found";
         }
         else
-            echo "No route match";
+            echo 'No route matched.';
     }
 
     /**
      * Convert the string with hyphens to StudlyCaps,
      * e.g. post-authors => PostAuthors
      *
-     * @param string $string the string to convert
+     * @param string $string The string to convert
      *
      * @return string
      */
@@ -142,36 +149,68 @@ class Router
     }
 
     /**
-     * Convert the string with hyphens to amelCase,
+     * Convert the string with hyphens to camelCase,
      * e.g. add-new => addNew
      *
-     * @param string $string the string to convert
+     * @param string $string The string to convert
      *
      * @return string
      */
-    protected function convertToStudlyCaps($string)
+    protected function convertToCamelCase($string)
     {
         return lcfirst($this->convertToStudlyCaps($string));
     }
 
     /**
+     * Remove the query string variables from the URL (if any). As the full
+     * query string is used for the route, any variables at the end will need
+     * to be removed before the route is matched to the routing table. For
+     * example:
      *
+     *   URL                           $_SERVER['QUERY_STRING']  Route
+     *   -------------------------------------------------------------------
+     *   localhost                     ''                        ''
+     *   localhost/?                   ''                        ''
+     *   localhost/?page=1             page=1                    ''
+     *   localhost/posts?page=1        posts&page=1              posts
+     *   localhost/posts/index         posts/index               posts/index
+     *   localhost/posts/index?page=1  posts/index&page=1        posts/index
      *
-     * @param string $url the full URL
+     * A URL of the format localhost/?page (one variable name, no value) won't
+     * work however. (NB. The .htaccess file converts the first ? to a & when
+     * it's passed through to the $_SERVER variable).
+     *
+     * @param string $url The full URL
      *
      * @return string The URL with the query string variables removed
      */
-    protected function removeQueryStringVariables ($url)
+    protected function removeQueryStringVariables($url)
     {
-        if ($url != '')
-        {
-            $parts = explode ('&', $url, 2);
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
 
-            if (strpos($parts[0], '"') === false)
+            if (strpos($parts[0], '=') === false)
                 $url = $parts[0];
             else
                 $url = '';
         }
+
         return $url;
+    }
+
+    /**
+     * Get the namespace for the controller class. The namespace defined in the
+     * route parameters is added if present.
+     *
+     * @return string The request URL
+     */
+    protected function getNamespace()
+    {
+        $namespace = 'App\Controllers\\';
+
+        if (array_key_exists('namespace', $this->params))
+            $namespace .= $this->params['namespace'] . '\\';
+
+        return $namespace;
     }
 }

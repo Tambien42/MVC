@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use \Core\View
+//use \Core\View
 
 /**
  * Home controller
@@ -36,7 +36,7 @@ class Home extends \Core\Controller
 	*
 	* @return void
 	*/
-	public function index()
+	public function indexAction()
 	{
 		echo 'Hello from the index action in the Home controller!';
 		//view::render('Home/index.php');
