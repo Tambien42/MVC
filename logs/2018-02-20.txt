@@ -1,0 +1,16 @@
+[20-Feb-2018 11:34:00 Europe/Berlin] Uncaught exception:'Exception' with messageNo route matched.
+Stack trace: #0 /Applications/MAMP/htdocs/MVC/public/index.php(36): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/Applications/MAMP/htdocs/MVC/Core/Router.php' on line 135
+[20-Feb-2018 11:43:40 Europe/Berlin] Uncaught exception:'Exception' with messageNo route matched.
+Stack trace: #0 /Applications/MAMP/htdocs/MVC/public/index.php(36): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/Applications/MAMP/htdocs/MVC/Core/Router.php' on line 135
+[20-Feb-2018 11:49:10 Europe/Berlin] Uncaught exception:'Exception' with messageNo route matched.
+Stack trace: #0 /Applications/MAMP/htdocs/MVC/public/index.php(36): Core\Router->dispatch('products')
+#1 {main}
+Thrown in '/Applications/MAMP/htdocs/MVC/Core/Router.php' on line 135
+[20-Feb-2018 11:49:29 Europe/Berlin] Uncaught exception:'Exception' with messageController class App\Controllers\Products not found
+Stack trace: #0 /Applications/MAMP/htdocs/MVC/public/index.php(36): Core\Router->dispatch('products/t')
+#1 {main}
+Thrown in '/Applications/MAMP/htdocs/MVC/Core/Router.php' on line 132
