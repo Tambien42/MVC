@@ -4,12 +4,20 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6
+class ComposerStaticInit74ad443903bfdbc7142213e19b7ba3e9
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
             'Twig\\' => 5,
+        ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -17,6 +25,14 @@ class ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Core',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App',
         ),
     );
 
@@ -33,9 +49,9 @@ class ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit10be106cf1b7aa54b167868f7ea32bb6::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit74ad443903bfdbc7142213e19b7ba3e9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit74ad443903bfdbc7142213e19b7ba3e9::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit74ad443903bfdbc7142213e19b7ba3e9::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
