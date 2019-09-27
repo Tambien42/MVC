@@ -5,7 +5,11 @@
 {%block body %}
 
 	<h1>Welcome</h1>
-	<p>Hello from a Twig template, {{ name }}!</p>
+	{% if current_user %}
+		<p>Hello from a Twig template, {{ current_user.name }}!</p>
+	{% else %}
+		<p>Hello from a Twig template, stranger!</p>
+	{% endif %}
 	<ul>
 		{% for colour in colours %}
 			<li>{{ colour }}</li>

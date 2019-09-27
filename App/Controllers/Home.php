@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use App\Auth;
 
 /**
  * Home controller
@@ -43,8 +44,8 @@ class Home extends \Core\Controller
             'name' => 'Dave',
             'colours' => ['red', 'green', 'blue']
         ]);*/
+		//\App\Mail::send('tambien_36@hotmail.com', 'Test', 'This is a test', '<h1>This is a test</h1>');
         View::renderTemplate('Home/index.html', [
-            'name' => 'Dave',
             'colours' => ['red', 'green', 'blue']
         ]);
 	}

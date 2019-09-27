@@ -80,7 +80,6 @@ class Router
                 return true;
             }
         }
-
         return false;
     }
 
@@ -111,7 +110,6 @@ class Router
         {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            //$controller = "App\Controllers\\$controller";
             $controller = $this->getNamespace() . $controller;
 
             if (class_exists($controller))
@@ -124,10 +122,10 @@ class Router
                 if (is_callable([$controller_object, $action]))
                 {
                     $controller_object->$action();
-                } 
-                else 
+                }
+                else
                     throw new \Exception("Method $action (in controller $controller) not found");
-            } 
+            }
             else
                 throw new \Exception("Controller class $controller not found");
         }

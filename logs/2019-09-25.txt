@@ -1,0 +1,10 @@
+[25-Sep-2019 23:51:10 UTC] Uncaught exception:'ParseError' with messagesyntax error, unexpected '->' (T_OBJECT_OPERATOR)
+Stack trace: #0 /Applications/MAMP/htdocs/MVC/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/Applications/M...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Models\\User')
+#2 /Applications/MAMP/htdocs/MVC/App/Controllers/Signup.php(31): spl_autoload_call('App\\Models\\User')
+#3 [internal function]: App\Controllers\Signup->createAction()
+#4 /Applications/MAMP/htdocs/MVC/Core/Controller.php(48): call_user_func_array(Array, Array)
+#5 /Applications/MAMP/htdocs/MVC/Core/Router.php(126): Core\controller->__call('create', Array)
+#6 /Applications/MAMP/htdocs/MVC/public/index.php(36): Core\Router->dispatch('signup/create')
+#7 {main}
+Thrown in '/Applications/MAMP/htdocs/MVC/App/Models/User.php' on line 69
