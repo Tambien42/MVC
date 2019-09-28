@@ -222,8 +222,7 @@ class User extends \Core\Model
 
 		if ($user) {
 			if ($user->startPasswordReset()) {
-				// TODO
-				//$user->sendPasswordResetEmail();
+				$user->sendPasswordResetEmail();
 			}
 		}
 	}
@@ -264,8 +263,8 @@ class User extends \Core\Model
 	protected function sendPasswordResetEmail()
 	{
 		$url = 'http://' . $_SERVER['HTTP_HOST'] . 'password/reset/' . $this->password_reset_token;
-		$text = View::getTemplate('Password/reset_password.txt', ['url' => $url]);
-		$html = View::getTemplate('Password/reset_password.html', ['url' => $url]);
+		$text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
+		$html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
 
 		Mail::send($this->email, 'Password reset', $text, $html);
 	}

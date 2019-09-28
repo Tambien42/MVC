@@ -47,16 +47,4 @@ class Config
 	 * @var string
 	 */
 	const SECRET_KEY = 'YD2kUr82X2U6CfLGngVt8NE0yf3V46Sq';
-
-	/**
-	 * Mailgun domain
-	 * @var string
-	 */
-	const MAILGUN_DOMAIN = 'sandbox8ea6b6a77ce443a28191c7d0827a0f80.mailgun.org';
-
-	/**
-	 * Mailgun api key
-	 * @var string
-	 */
-	const MAILGUN_API_KEY = 'sandbox8ea6b6a77ce443a28191c7d0827a0f80.mailgun.org';
 }
