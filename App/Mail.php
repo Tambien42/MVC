@@ -21,7 +21,7 @@ class Mail
 	 * @param string $text Text-only content of the message
 	 * @param string $html HTML content of the message
 	 *
-	 * @return mixed
+	 * @return int 1 if success
 	 */
 	public static function send($to, $subject, $text, $html)
 	{
@@ -60,15 +60,16 @@ class Mail
 		$mail->Subject = $subject;
 		$mail->Body    = $html;
 
+		return $mail->send();
 		//$mail->SMTPDebug = 4;
-		if(!$mail->send()) {
-			$output = 'Message could not be sent.';
-			echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-			echo "<script>console.log('Debug Objects: " . $mail->ErrorInfo . "' );</script>";
-		} else {
-			$output = 'Message has been sent';
-			echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-		}
+		// if(!$mail->send()) {
+		// 	$output = 'Message could not be sent.';
+		// 	echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+		// 	echo "<script>console.log('Debug Objects: " . $mail->ErrorInfo . "' );</script>";
+		// } else {
+		// 	$output = 'Message has been sent';
+		// 	echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+		// }
 	}
 
 	protected static function debug_to_console($data) {

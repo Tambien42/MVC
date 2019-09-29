@@ -27,8 +27,15 @@ class Password extends \Core\Controller
 	 */
 	public function requestResetAction()
 	{
+		// TODO check if mail is in database
 		User::sendPasswordReset($_POST['email']);
 		View::renderTemplate('Password/reset_requested.html');
+		// if (User::sendPasswordReset($_POST['email'])) {
+		// 	View::renderTemplate('Password/reset_requested.html');
+		// } else {
+		// 	View::renderTemplate('Password/reset_requested_fail.html');
+		// }
+
 	}
 
 	/**
@@ -70,7 +77,6 @@ class Password extends \Core\Controller
 	 */
 	protected function getUserOrExit($token)
 	{
-		// TODO doesn't work
 		$user = User::findByPasswordReset($token);
 
 		if ($user) {

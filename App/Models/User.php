@@ -214,7 +214,7 @@ class User extends \Core\Model
 	 *
 	 * @param string $email email address
 	 *
-	 * @return void
+	 * @return int 1 if success
 	 */
 	public static function sendPasswordReset($email)
 	{
@@ -222,9 +222,10 @@ class User extends \Core\Model
 
 		if ($user) {
 			if ($user->startPasswordReset()) {
-				$user->sendPasswordResetEmail();
+				return $user->sendPasswordResetEmail();
 			}
 		}
+		return 0;
 	}
 
 	/**
@@ -258,7 +259,7 @@ class User extends \Core\Model
 	/**
 	 * Send password reset instructions in an email to the user
 	 *
-	 * @return void
+	 * @return 1 if success
 	 */
 	protected function sendPasswordResetEmail()
 	{
@@ -266,7 +267,7 @@ class User extends \Core\Model
 		$text = View::getTemplate('Password/reset_email.txt', ['url' => $url]);
 		$html = View::getTemplate('Password/reset_email.html', ['url' => $url]);
 
-		Mail::send($this->email, 'Password reset', $text, $html);
+		return Mail::send($this->email, 'Password reset', $text, $html);
 	}
 
 	/**
